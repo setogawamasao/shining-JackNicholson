@@ -34,18 +34,15 @@ const createImageElm = (path) => {
     document.body.append(canvas);
     const displaySize = { width: video.width, height: video.height };
     faceapi.matchDimensions(canvas, displaySize);
-    const tinyFaceDetectorOption = {
-      // default 416
-      inputSize: 224,
-      // default 0.5
-      scoreThreshold: 0.5,
-    };
+    const tinyFaceDetectorOption = { inputSize: 224, scoreThreshold: 0.5 };
     const doorLeftImage = createImageElm(
       `${gitPagesPath}/images/door_left.png`
     );
     const doorRightImage = createImageElm(
       `${gitPagesPath}/images/door_right.png`
     );
+    const videoWidth = video.width;
+    const videoHeight = video.height;
     setInterval(async () => {
       const results = await faceapi
         .detectAllFaces(
@@ -65,12 +62,12 @@ const createImageElm = (path) => {
         const leftMargin = width * 0.2;
         const rightMargin = width * 0.35;
         const doorLeftWidth = x + leftMargin;
-        const doorRightWidth = 720 - (x + width) + rightMargin;
+        const doorRightWidth = videoWidth - (x + width) + rightMargin;
         const expression = result.expressions.asSortedArray()[0].expression;
         if (expression === "angry") {
           canvas
             .getContext("2d")
-            .drawImage(doorLeftImage, 0, 0, doorLeftWidth, 560);
+            .drawImage(doorLeftImage, 0, 0, doorLeftWidth, videoHeight);
 
           canvas
             .getContext("2d")
@@ -79,7 +76,7 @@ const createImageElm = (path) => {
               x + width - rightMargin,
               0,
               doorRightWidth,
-              560
+              videoHeight
             );
         }
       });
