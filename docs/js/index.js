@@ -4,7 +4,7 @@ const startVideo = async (video) => {
   try {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: "environment" } },
+      video: { facingMode: { exact: "user" } },
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
