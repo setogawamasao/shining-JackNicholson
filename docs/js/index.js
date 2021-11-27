@@ -2,7 +2,10 @@ const gitPagesPath = "/shining-JackNicholson";
 
 const startVideo = async (video) => {
   try {
-    const constraints = { audio: false, video: { facingMode: "environment" } };
+    const constraints = {
+      audio: false,
+      video: { facingMode: { exact: "environment" } },
+    };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
   } catch (error) {
