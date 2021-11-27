@@ -6,7 +6,7 @@ const startVideo = async (video) => {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
   } catch (error) {
-    console.error(error);
+    window.alert(`${error.name} : ${error.message}`);
   }
 };
 
