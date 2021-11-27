@@ -1,6 +1,6 @@
 // switch at upload to git
 // const gitPagesPath = "";
-const gitPagesPath = "";
+const gitPagesPath = ".";
 
 const startVideo = async (video) => {
   try {
