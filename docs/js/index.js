@@ -10,7 +10,8 @@ const startVideo = async (video) => {
   try {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: "user" }, width: 200, height: 300 },
+      // video: { facingMode: { exact: "user" }, width: 400, height: 300 },
+      video: { facingMode: { exact: "user" } },
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
@@ -37,7 +38,7 @@ const createImageElm = (path) => {
   const video = document.querySelector("video");
 
   video.width = window.innerWidth;
-  video.height = window.innerWidth * (7 / 9);
+  // video.height = window.innerWidth * (7 / 9);
 
   await loadModels();
   await startVideo(video);
