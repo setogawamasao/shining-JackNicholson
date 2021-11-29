@@ -6,16 +6,15 @@ if (hostName == "localhost" || hostName == "127.0.0.1") {
   gitPagesPath = "/shining-JackNicholson";
 }
 
-// const gitPagesPath = "/shining-JackNicholson";
-
 const startVideo = async (video) => {
   try {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: "user" } },
+      video: { facingMode: { exact: "user" }, width: 90, height: 70 },
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
+    window.alert(`v-w : ${video.videoWidth} , v-h : ${video.videoHeight}`);
   } catch (error) {
     window.alert(`${error.name} : ${error.message}`);
   }
@@ -35,12 +34,16 @@ const createImageElm = (path) => {
 };
 
 (async () => {
-  window.alert(`w : ${window.innerWidth} , h : ${window.innerHeight}`);
   const video = document.querySelector("video");
+
   video.width = window.innerWidth;
   video.height = window.innerWidth * (7 / 9);
+
   await loadModels();
   await startVideo(video);
+
+  window.alert(`i-w : ${window.innerWidth} , i-h : ${window.innerHeight}`);
+
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
