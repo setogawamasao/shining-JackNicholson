@@ -38,7 +38,7 @@ const createImageElm = (path) => {
   const video = document.querySelector("video");
 
   video.width = window.innerWidth;
-  // video.height = window.innerWidth * (7 / 9);
+  video.height = window.innerWidth * (7 / 9);
 
   await loadModels();
   await startVideo(video);
