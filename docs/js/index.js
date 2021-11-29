@@ -1,4 +1,5 @@
-const gitPagesPath = "/shining-JackNicholson";
+// const gitPagesPath = "/shining-JackNicholson";
+const gitPagesPath = "";
 
 const startVideo = async (video) => {
   try {
@@ -27,7 +28,10 @@ const createImageElm = (path) => {
 };
 
 (async () => {
+  window.alert(`w : ${window.innerWidth} , h : ${window.innerHeight}`);
   const video = document.querySelector("video");
+  video.width = window.innerWidth;
+  video.height = (window.innerWidth * 7) / 9;
   await loadModels();
   await startVideo(video);
   video.addEventListener("play", () => {
