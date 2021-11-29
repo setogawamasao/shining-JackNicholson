@@ -1,5 +1,5 @@
-// const gitPagesPath = "/shining-JackNicholson";
-const gitPagesPath = "";
+const gitPagesPath = "/shining-JackNicholson";
+//const gitPagesPath = "";
 
 const startVideo = async (video) => {
   try {
