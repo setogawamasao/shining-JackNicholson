@@ -15,7 +15,6 @@ const startVideo = async (video) => {
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
-    window.alert(`v-w : ${video.videoWidth} , v-h : ${video.videoHeight}`);
   } catch (error) {
     window.alert(`${error.name} : ${error.message}`);
   }
@@ -36,16 +35,17 @@ const createImageElm = (path) => {
 
 (async () => {
   const video = document.querySelector("video");
-
   video.width = window.innerWidth;
   video.height = window.innerWidth * (7 / 9);
 
   await loadModels();
   await startVideo(video);
 
-  window.alert(`i-w : ${window.innerWidth} , i-h : ${window.innerHeight}`);
-
   video.addEventListener("play", () => {
+    window.alert(`v-w : ${video.videoWidth} , v-h : ${video.videoHeight}`);
+    window.alert(
+      `i-w : ${window.innerWidth},${video.width} , i-h : ${window.innerHeight},${video.height}`
+    );
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
     const displaySize = { width: video.width, height: video.height };
