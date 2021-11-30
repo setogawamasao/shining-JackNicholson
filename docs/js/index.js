@@ -98,7 +98,7 @@ const createImageElm = (path) => {
         const doorLeftWidth = x + leftMargin;
         const doorRightWidth = videoWidth - (x + width) + rightMargin;
         const expression = result.expressions.asSortedArray()[0].expression;
-        if (expression === "angry") {
+        if (expression === "happy") {
           canvas
             .getContext("2d")
             .drawImage(doorLeftImage, 0, 0, doorLeftWidth, videoHeight);
