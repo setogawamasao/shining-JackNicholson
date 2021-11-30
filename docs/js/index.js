@@ -10,7 +10,7 @@ const startVideo = async (video) => {
   try {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: "user" }, width: 200, height: 300 },
+      video: { facingMode: { exact: "user" }, width: 373, height: 480 },
       // video: { facingMode: { exact: "user" } },
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
