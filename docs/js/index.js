@@ -1,3 +1,4 @@
+// 開発環境判定
 const hostName = document.location.hostname;
 let gitPagesPath;
 if (hostName == "localhost" || hostName == "127.0.0.1") {
@@ -6,12 +7,25 @@ if (hostName == "localhost" || hostName == "127.0.0.1") {
   gitPagesPath = "/shining-JackNicholson";
 }
 
+// iOS判定
+const ua = navigator.userAgent;
+const isIOS =
+  ua.indexOf("iPhone") >= 0 ||
+  ua.indexOf("iPad") >= 0 ||
+  navigator.userAgent.indexOf("iPod") >= 0;
+
+// ビデオ開始
 const startVideo = async (video) => {
+  let videoSetting;
+  if (isIOS) {
+    videoSetting = { facingMode: { exact: "user" }, width: 373, height: 480 };
+  } else {
+    videoSetting = {};
+  }
   try {
     const constraints = {
       audio: false,
-      video: { facingMode: { exact: "user" }, width: 373, height: 480 },
-      // video: { facingMode: { exact: "user" } },
+      video: videoSetting,
     };
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     video.srcObject = stream;
@@ -20,6 +34,7 @@ const startVideo = async (video) => {
   }
 };
 
+// 顔認識モデルの読み込み
 const loadModels = async () => {
   await Promise.all([
     faceapi.nets.tinyFaceDetector.loadFromUri(`${gitPagesPath}/js/lib/models`),
@@ -27,25 +42,28 @@ const loadModels = async () => {
   ]);
 };
 
+// 画像の読込
 const createImageElm = (path) => {
   const image = new Image();
   image.src = path;
   return image;
 };
 
+// メイン処理
 (async () => {
   const video = document.querySelector("video");
-  video.width = window.innerWidth;
-  video.height = window.innerWidth * (7 / 9);
+  if (isIOS) {
+    video.width = window.innerWidth;
+    video.height = window.innerWidth * (7 / 9);
+  } else {
+    video.width = 720;
+    video.height = 560;
+  }
 
   await loadModels();
   await startVideo(video);
 
   video.addEventListener("play", () => {
-    window.alert(`v-w : ${video.videoWidth} , v-h : ${video.videoHeight}`);
-    window.alert(
-      `i-w : ${window.innerWidth},${video.width} , i-h : ${window.innerHeight},${video.height}`
-    );
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
     const displaySize = { width: video.width, height: video.height };
